@@ -130,7 +130,7 @@ PersistedIDsHashMany.new("#{dataDirName}/photos-in-album-ids-map.txt") do |photo
 photosAS = %[
 on run argv
   set text item delimiters to character id 0
-  tell application "iPhoto" to set snaps to {id, original path, image path} of photos in photo library album
+  tell application "iPhoto" to set snaps to {id, original path, original path} of photos in photo library album
   
   set ids     to first item of snaps
   set idsFile to first item of argv
@@ -178,9 +178,9 @@ on run argv
 
   tell application "iPhoto"
     repeat with anAlbum in albums
-      if anAlbum's type is regular album then
+      if anAlbum's type is folder album then
         set albumName to anAlbum's name
-        if albumName is not "Last Import" then
+        if albumName is not "Dernière importation" then
           set albumPhotoIds to (id of every photo of anAlbum) as Unicode text
           if length of albumPhotoIds is greater than 0 then
             set currentAlbum to anAlbum
